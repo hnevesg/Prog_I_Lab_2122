@@ -1,0 +1,232 @@
+import java.util.Scanner;
+
+public class Plane {
+
+	public static void main (String [] args) {
+		Scanner KEYBOARD = new Scanner (System.in);
+		System.out.print("First of all, enter the number of rows of the plane, taking into account that each row has 4 seats: ");
+		int R=KEYBOARD.nextInt();
+			while(R<=0) {
+				System.out.println("It must be a positive integer. Write the value again.");
+				R=KEYBOARD.nextInt();
+			}
+		System.out.print("And the price of each ticket: ");
+		double P=KEYBOARD.nextDouble();
+			while(P<=0) {
+				System.out.println("It must be a positive number. Write the value again.");
+				P=KEYBOARD.nextInt();
+			}
+		boolean[][] array = new boolean [R][4];
+			menu(array,R,P);
+	}
+	
+	
+	public static void Initial(boolean [][] array, int R) {
+		for(int i=0; i<array.length; i++) {
+			for(int j=0; j<4; j++) {
+				array[i][j]=true;
+			}
+		}
+	}
+		
+	public static void Show(boolean [][] array) {
+		for(int i=0;i<array.length;i++) {
+			System.out.print("Row " + i + ": ");
+			for(int j=0;j<4;j++) {
+				System.out.print(array[i][j] + " ");
+			}
+			System.out.println(" ");
+		}
+	}
+		
+	public static void Rebuild(boolean[][] array, int R, int ticket, int place, int seat) {
+		for(int i=0; i<array.length; i++) { 
+			for(int j=0; j<4; j++) {
+				if(ticket>0 && array[place][seat]==true) {
+					array[place][seat]=false;
+					ticket=ticket-1;
+				}
+			}
+		}
+	}
+				
+	public static void TicketsSale(boolean[][] array, int R, double P) {
+		Scanner sc = new Scanner (System.in);
+		int ticket, place, seat;
+		double price;					
+			
+		array = new boolean [R][4];
+		System.out.println("How many tickets you want to buy? ");
+		ticket=sc.nextInt();
+		while(ticket>10 || ticket<=0) {
+			if(ticket>10) {
+				System.out.print("You can only buy 10 tickets at once. Write the value again: ");
+			}
+			if(ticket<=0) {
+				System.out.println("The number of tickets must be a positive integer smaller than 10. Write the value again: ");
+			}
+			ticket=sc.nextInt();
+		}
+		
+		int T=ticket;
+		System.out.println("The availability is as follows:");
+		Initial(array, R);	
+		Show(array);
+		
+		while(ticket>0) {
+			for(int i=0;i<T;i++) {
+				System.out.print("Enter in which row you want the seat " + i + " : ");
+				place=sc.nextInt();
+				while (place>=R || place<0) {
+					System.out.println("Error. Please write a value inside the range.");
+					place=sc.nextInt();
+				}
+				System.out.print("And now enter in which column you want the seat " + i + " : "); 
+				seat=sc.nextInt(); 
+				while (seat>=4 || seat<0) {
+					System.out.println("Error. Please write a value inside the range.");
+					seat=sc.nextInt();
+				}
+				
+				if(array[place][seat]==true) {
+					System.out.println("You have bought the seat " + seat + " in row " + place);
+				}else {
+					while (array[place][seat]==false) { // If the user selects a chosen seat
+						System.out.println("You have chosen a seat that is already taken. Please select another one. The availability is:");				
+						Show(array);
+						System.out.println("Enter in which row you want the seat " + i + " : ");
+						place=sc.nextInt();
+						while (place>=R || place<=0) {
+							System.out.println("Error. Please write a value inside the range.");
+							place=sc.nextInt();		
+							System.out.println("And now enter in which column you want the seat " + i + " : ");
+							seat=sc.nextInt(); 
+							while (seat>=4 || seat<=0) {
+								System.out.println("Error. Please write a value inside the range.");
+								seat=sc.nextInt();
+							}
+						}
+					} 
+				}
+				ticket=ticket-1;
+				Rebuild(array, R, T, place, seat);
+			}
+		}		
+				
+		for (int k=0; k<array.length;k++) {
+			if (array[k][0]==false && array[k][1]==false && array[k][2]==false && array[k][3]==false) { 
+				price = (P * T * 0.95);
+				System.out.print("The final price, including the discount for buying a whole row is: " + price + "�");
+			}else if (array[k][0]!=false && array[k][1]!=false && array[k][2]!=false && array[k][3]!=false) { 
+				price = (P * T);
+				System.out.print("The final price, with no discount, is: " + price + "�");
+			}
+		}
+		
+		System.out.println(" ");
+		System.out.println("Now, the availability is: ");
+		Show(array);				
+	}		
+				
+	public static void TicketsAvailability(boolean[][] array, int R) {
+		Scanner scanner = new Scanner (System.in); 
+		int place, seat;
+
+		System.out.println("Enter the row of the seat you want to see:");
+		place=scanner.nextInt();		
+		
+		System.out.println("And now enter in which column it is located:");
+		seat=scanner.nextInt();
+
+	 	array = new boolean [R][4];
+		
+		if(array[place][seat]==true) {
+			System.out.print("The seat is available.");
+		}else {
+			System.out.print("The seat is already taken.");
+		}
+	}
+	
+	
+	public static void TicketsCancellation(boolean [][] array, int R) {
+		Scanner scan = new Scanner (System.in);
+		int place, seat;
+		
+		System.out.println("The availability is as follows:");
+		Show(array); 
+	
+		do {
+			System.out.println("Enter in which row is located the seat you want to cancell.");
+			place=scan.nextInt();	
+			while (place<0 || place>=R) {
+				System.out.println("Error. Write the value again.");
+				place=scan.nextInt();
+			}
+			
+			System.out.println("And now enter in which column is located the seat."); 
+			seat=scan.nextInt(); 
+			while (seat<0 || seat>=4) {
+				System.out.println("Error. Write the value again.");
+				seat=scan.nextInt();
+			}
+
+			if (array[place][seat]==false) {
+				array[place][seat]=true;	
+				System.out.println("Now the availability is: ");
+				Show(array);
+			}else {
+				System.out.println("Error. This seat is already available.");
+				System.out.println("This is the availabilty:");
+				Show(array);
+			}
+					
+			System.out.println("If you want to stop cancelling tickets, enter 10.");
+		} while(place!=10 || place<4); 
+	}
+	
+	
+	public static void menu(boolean [][] array, int R, double P) {
+		
+		Scanner scan = new Scanner (System.in);
+				
+		System.out.println(" ");
+		System.out.println("0. Exit");
+		System.out.println("1. Buy tickets");
+		System.out.println("2. Check available tickets");
+		System.out.println("3. Cancel tickets");
+		System.out.println("Choose an option from the menu");
+		
+		int menu=scan.nextInt();	
+		switch (menu) {
+			case 0: 
+				System.out.println("The program has ended.");
+				break;
+				
+			case 1: 
+				System.out.println("Let's start buying tickets.");
+				TicketsSale(array, R, P);
+				menu(array, R, P);
+				break;
+
+			case 2: 
+			TicketsAvailability(array,R);
+				menu(array, R, P);
+				break;
+				
+			case 3: 
+			TicketsCancellation(array, R);
+				menu(array, R, P);
+				break;
+		}
+	
+		while (menu>3||menu<0) {
+			System.out.println("Invalid option. Choose a number between 0 and 3:");
+			System.out.println("0. Exit");
+			System.out.println("1. Buy tickets");
+			System.out.println("2. Check available tickets");
+			System.out.println("3. Cancel tickets");
+			menu=scan.nextInt();	
+		}
+		scan.close();	
+	}
+}

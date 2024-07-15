@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+public class TwoDimension_Array {
+	
+public static void main (String [] args) {
+	
+	int R, C, M, A, Z, i, j; // R rows, C seats per row (columns), M tickets selected, A total seats, Z seats available
+	boolean k=true;
+	Scanner scan = new Scanner (System.in);
+	
+	System.out.print("Write how many rows the bus has: ");
+	R = scan.nextInt();
+	while (R<=0) {
+		System.out.println("Error. Write the value again.");
+		R = scan.nextInt();
+	}
+	
+	System.out.print("Write how many seats each row has: ");
+	C = scan.nextInt();
+	while (C<=0) {
+		System.out.println("Error. Write the value again.");
+		C = scan.nextInt();
+	}
+	
+	A = R*C;
+	System.out.println();
+	System.out.println("Please enter how many tickets you want to buy. It must be a positive number form 1 to " + A + ". If you want to cancell enter 0.");
+	M = scan.nextInt();
+	Z=A;
+	
+	while (M>Z || M>A || M<0) {
+		if (M>Z || M>A) {
+			System.out.println("You are asking for more tickets than seats available are. Write the value again."); // ESTE NO FUNCIONA
+		}
+		if (M<0) {
+			System.out.println("You must enter a positive number. Write the value again.");
+		}
+		M = scan.nextInt();
+	}
+	
+	boolean [][] array = new boolean [R][C];
+	for(i=0;i<=array.length-1;i++) {
+		for (j=0;j<array[i].length;j++) { 
+			array[i][j]=k;
+		}
+	}
+	
+	while (M<=Z && M!=0) { 
+	
+	System.out.println("The availability before the sale is:");
+		for(i=0;i<=array.length-1;i++) {
+			System.out.println();
+			for (j=0;j<array[i].length;j++) { 
+				System.out.print(array[i][j]);
+				System.out.print(" ");
+											
+			}
+		}
+		
+	
+	while (M>Z || M>A || M<0) {
+		if (M>Z || M>A) {
+			System.out.println("You are asking for more tickets than seats available are. Write the value again."); // ESTE NO FUNCIONA
+		}
+		if (M<0) {
+			System.out.println("You must enter a positive number. Write the value again.");
+		}
+		M = scan.nextInt();
+	}
+	
+		
+	int a=M, counter=0;
+	for(i=0;i<=array.length-1;i++) {
+		for (j=0;j<array[i].length;j++) {
+			if(array[i][j]==true) {
+				a--;
+			}
+		}
+		if (a>0) {
+			counter++;
+		}
+	}
+	
+	System.out.println(" ");
+	System.out.println("The row " + counter + " has enough seats available for the tickets requested.");  	
+	
+	System.out.println(" ");
+	System.out.println("After the sale, the availabilty is as follows:");
+	
+	int b=M;
+	for(i=0;i<=array.length-1;i++) {
+		System.out.println();
+		for (j=0;j<array[i].length;j++) {
+			if(b>0 && array[i][j]==true) {
+			array[i][j]=false;
+			b--;
+			}
+			System.out.print(array[i][j] + " ");
+		}
+	}
+	 
+
+	
+			
+		if (M==0) {
+		System.out.println("The purchase is cancelled");	
+	}
+	
+		Z=Z-M; 
+		System.out.println(" ");
+		System.out.println("Please enter how many tickets you want to buy. It must be a positive number form 1 to " + Z + ". If you want to cancell enter 0.");
+		M = scan.nextInt();
+	}
+	
+	
+	scan.close();
+      } 
+	
+	}

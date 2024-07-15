@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class tickets {
+
+	public static void main (String [] args) {
+		
+		Scanner KEYBOARD = new Scanner(System.in);
+		
+		int N, K1, K2, ticket;
+		double sdiscount, bdiscount, result;
+		
+		 // ticket 33�
+			
+		System.out.println("Introduce the number of tickets you want to offer for sale ");
+		N = KEYBOARD.nextInt();
+		
+		if  (N <= 0) {
+			System.out.println("Error. End of the program");
+		} else {
+			System.out.println("Introduce the number of tickets required to get the maximum discount. It must be a value smaller than " + N + ": ");
+		}
+
+		K2 = KEYBOARD.nextInt();				
+		if (N < K2) {
+			System.out.println("Error. End of the program");
+		} else {
+			System.out.println("Introduce the number of tickets required to get the smaller discount. It must be a value smaller than " + K2 + ": ");
+		}
+	
+		K1 = KEYBOARD.nextInt();
+		if (K1 > K2) {
+		    System.out.println("Error. End of the program");
+		} else {
+			System.out.println("The price for each ticket is 33.0�");
+		    System.out.println("How many tickets do you want to buy? " + "It must be a value smaller than or equals to " + N + ": ");
+		}
+		                                   		
+		ticket = KEYBOARD.nextInt();
+		sdiscount = (double) (0.95 * ticket * 33);
+		bdiscount = (double) (0.85 * ticket * 33);
+		if (N < ticket) {
+		    System.out.println("Error. End of the program");
+		} else if (ticket >= K2) {
+		    result = bdiscount;
+		        System.out.println("Since the number of tickets is " + ticket + ", a discount of 15.0% will be applied." + "The total price for the " + ticket + " tickets is " + result + "�");		                                    	        	 
+	    } else if (ticket >= K1) { 
+			result = sdiscount;
+		    System.out.println("Since the number of tickets is " + ticket + ", a discount of 5.0% will be applied." + "The total price for the " + ticket + " tickets is " + result + "�" );                        	        			 
+		}  else if (ticket < K1) {
+		    result = (33 * ticket);  System.out.println("Since the number of tickets is " + ticket + ", any discount is applied. The total price for the " + ticket + " tickets is " + result + "�");
+		} 
+		    
+		KEYBOARD.close();	                                    	          
+	}
+}

@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class PositiveNumbers {
+ public static void main (String[] args) {
+	
+	final int K1 = 2 ;
+	final int K2 = 14 ;
+	int total, n1, i, counterofError = 0, all, out;
+	Scanner KEYBOARD = new Scanner (System.in) ;
+	
+	System.out.print("Introduce the number of positive numbers you are going to write: ");
+		total = KEYBOARD.nextInt();
+		System.out.println("The reference range is [" + K1 +", " + K2 + "]");
+	
+		System.out.println("Introduce the first number: ");
+		n1 = KEYBOARD.nextInt();
+			
+		i=2;
+	while (i<=total) {
+		
+		if (n1>=K1 && n1<=K2) {
+			System.out.println("Enter the next positive number: ");
+			n1 = KEYBOARD.nextInt();
+			i++;
+			} else {
+			System.out.println("Error, introduce a positive number inside the range: ");
+		n1 = KEYBOARD.nextInt();
+		counterofError++;
+	}
+		
+				
+	}
+			all = total + counterofError ;
+			System.out.println("The amount of total values entered during the execution of the program is" + all + ".");
+		out = counterofError;
+		System.out.println(out + " of the values were out of the range." + " And " + total + " in the range.");
+		
+	KEYBOARD.close();
+ }
+}

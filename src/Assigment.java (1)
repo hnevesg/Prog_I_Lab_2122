@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Assigment {
+	
+		public static void main (String[] args) {
+		
+		Scanner KEYBOARD = new Scanner(System.in);
+		
+		System.out.println("Introduce the integer number over which to calculate percentages");
+		int value = KEYBOARD.nextInt();
+		
+		int result1, result2, result3;
+		result1= (int) (0.95 * value);
+		result2 = (int) (0.8 * value); 
+						
+		System.out.println("The 95% is " + result1 + " and the 80% is " + result2);
+		
+		System.out.println("Now, introduce the value for the third percentage");
+		int value2 = KEYBOARD.nextInt();
+		result3 = (int) (value * 0.01 * value2);
+			
+		System.out.println("The value of the percentage you have chosen is " + result3);
+				
+		// As a real number
+		
+		float result4, result5, result6;
+		result4 = (float) (0.95 * value);
+		result5 = (float) (0.8 * value);
+		result6 = (float) (value * 0.01 * value2);
+		
+		System.out.println("Doing it with real numbers, the result would be: 95% of " + value + " is " + result4); 
+		System.out.println("And the 80% is " + result5);
+		
+		System.out.println("Now, with your chosen value for the third percentage, the result is " + result6);
+	
+		
+	KEYBOARD.close();			
+		
+						
+	}
+	
+}

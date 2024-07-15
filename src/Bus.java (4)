@@ -1,0 +1,126 @@
+import java.util.Scanner;
+
+public class Bus {
+	public static void main (String [] args) {
+		
+	int Z, M, N, i, k; // N number of seats, Z number of seats available, M tickets selected
+	boolean j=true;
+		
+	Scanner KEYBOARD = new Scanner (System.in);
+
+
+		System.out.print("The total number of seats in the bus is ");
+			N = KEYBOARD.nextInt();
+		while (N<=0) {
+			System.out.println("Error. Write the value again.");
+			N = KEYBOARD.nextInt();
+		} 
+		
+		Z=N;
+		System.out.println("Please enter how many tickets you want to buy. It must be a positive number form 1 to " + Z + ". If you want to cancell enter 0.");
+		M = KEYBOARD.nextInt();
+		
+		while (M>Z || M>N || M<0) {
+			if (M>Z || M>N) {
+				System.out.println("You are asking for more tickets than seats are available. Write the value again.");
+			M = KEYBOARD.nextInt();
+			}
+			if (M<0) {
+				System.out.println("You must enter a positive number. Write the value again.");
+			}
+			M = KEYBOARD.nextInt();
+		}
+		
+		
+		while (M<=Z && M!=0) { 
+			
+			boolean [][]Initial = new boolean [N/4+N%4][4];
+			boolean [][] Mtaken = new boolean [N/4+N%4][4]; 
+			
+			while (M>Z || M>N || M<0) {
+				if (M>Z || M>N) {
+					System.out.println("You are asking for more tickets than seats available are. Write the value again.");
+				}
+				if (M<0) {
+					System.out.println("You must enter a positive number. Write the value again.");
+				}
+				M = KEYBOARD.nextInt();
+			}
+			
+						
+			if (Initial.length - 1 >= M && M != 0) { 
+				System.out.println("The availability is as follows:");
+				
+				for(i=0;i<=Z-1;i++) { // a partir de la segunda es verdadero para i<=Z pero para el resto es falso
+					System.out.print(Initial[i]=j);  //true = seats available
+					System.out.print(" ");
+				}
+				
+				for (k=Initial.length-1; k>Z-1;k--) {
+					j=false;                 
+					System.out.print(Initial[k]=j);
+					System.out.print(" ");
+				}
+				
+			} else {
+				if (M!=0) {
+					System.out.println("The availability is as follows:");
+					for(k=0;k<Initial.length;k++) {
+						j=false;
+						System.out.print(Initial[k]=j);
+						System.out.print(" ");
+						System.out.println(" ");
+						System.out.println("All seats are occupied.");
+					}
+				}
+			}
+			
+			
+			if (Mtaken.length - 1 >= M && M!=0) { // same as N>=M
+				System.out.println(" ");
+				System.out.println("After the sale, the availability is as follows:");
+				for(i=0;i<=(Z-M)-1;i++) {
+					j=true;
+					System.out.print(Mtaken[i]=j);
+					System.out.print(" ");
+				}	
+				for(k=N-1;k>=Z-M;k--) {
+					j=false;
+					System.out.print(Mtaken[k]=j);
+					System.out.print(" ");
+				}
+			}else {
+				if (M!=0) {
+					System.out.println(" ");
+					System.out.println("After the sale, the availability is as follows:");
+					for(k=0;k<Mtaken.length;k++) {
+						j=false;
+						System.out.print(Mtaken[k]=j);
+						System.out.print(" ");
+					}
+					System.out.println(" ");
+					System.out.println("All seats are occupied.");
+				}
+			}
+			
+			
+						
+			Z=Z-M;
+			
+			if (Z==0){
+				System.out.println(" ");
+				System.out.println("All seats are occupied.");
+			} else {
+				System.out.println(" ");
+				System.out.println("Please enter how many tickets you want to buy. It must be a positive number form 1 to " + Z + ". If you want to cancell enter 0.");
+				M = KEYBOARD.nextInt();
+			}		
+
+			if (M==0) {
+				System.out.println("The purchase is cancelled.");		
+			}
+	}
+		
+		KEYBOARD.close();
+	}
+}
